@@ -15,10 +15,19 @@ CREATE TABLE livros (
 	estoque INTEGER DEFAULT 0
 );
 
-CREATE TABLE alunos {
+CREATE TABLE alunos (
 	id SERIAL PRIMARY KEY,
 	nome TEXT NOT NULL,
 	periodo VARCHAR(40) NOT NULL,
 	etapa VARCHAR(40) NOT NULL,
 	ano INTEGER NOT NULL
-}
+);
+
+CREATE TABLE emprestimos (
+	id SERIAL PRIMARY KEY,
+	id_livro INTEGER NOT NULL REFERENCES livros(id)
+	id_aluno INTEGER NOT NULL REFERENCES alunos(id)
+	data_emprestimo TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	data_devolucao TIMESTAMP,
+	devolvido BOOLEAN DEFAULT FALSE
+);

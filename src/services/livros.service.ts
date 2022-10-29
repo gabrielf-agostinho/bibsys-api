@@ -4,20 +4,16 @@ import { DATABASE_CONTEXT } from "./databaseContext.service";
 export class LivrosService {
   constructor() { }
 
-  public parseLivro(Livro: Livros) {
-    return new Livros(Livro.nome, Livro.autor, Livro.editora, Livro.genero, Livro.estoque);
-  }
-
   public async getAll(): Promise<Array<Livros> | null> {
-    const query: string = `SELECT id, nome FROM livros`;
+    const query: string = `SELECT * FROM livros`;
 
-    const result = await DATABASE_CONTEXT.query(query, []);
+    const result = await DATABASE_CONTEXT.query(query);
 
     if (result.rowCount > 0) {
       let livros: Array<Livros> = [];
 
       for (const livro of result.rows) {
-        livros.push(livro);  
+        livros.push(livro as Livros);  
       }
 
       return livros;
@@ -34,8 +30,7 @@ export class LivrosService {
     const result = await DATABASE_CONTEXT.query(query, params);
 
     if (result.rowCount > 0) {
-      const livro = result.rows[0] as Livros
-      return new Livros(livro.nome, livro.autor, livro.editora, livro.genero, livro.estoque, livro.id);
+      return result.rows[0] as Livros;
     }
     else {
       return null;
@@ -43,7 +38,7 @@ export class LivrosService {
   }
   
   public async post(livro: Livros): Promise<number> {
-    const query: string = 'INSERT INTO livros(nome, autor, editora, genero, estoque) VALUES ($1, $2, $3, $4, $5) RETURNING id';
+    const query: string = `INSERT INTO livros(nome, autor, editora, genero, estoque) VALUES ($1, $2, $3, $4, $5) RETURNING id`;
     const params: Array<any> = [livro.nome, livro.autor, livro.editora, livro.genero, livro.estoque];
 
     const result = await DATABASE_CONTEXT.query(query, params);

@@ -1,16 +1,24 @@
 CREATE DATABASE bibsysdb
 
 CREATE TABLE usuarios (
-	id serial primary key,
-	login varchar(40),
-	senha text
+	id SERIAL PRIMARY KEY,
+	login VARCHAR(40) NOT NULL,
+	senha TEXT NOT NULL
 );
 
 CREATE TABLE livros (
-	id serial primary key,
-	nome text not null,
-	autor varchar(100),
-	editora varchar(100),
-	genero varchar(100) not null,
-	estoque integer default 0
+	id SERIAL PRIMARY KEY,
+	nome TEXT NOT NULL,
+	autor VARCHAR(100),
+	editora VARCHAR(100),
+	genero VARCHAR(100),
+	estoque INTEGER DEFAULT 0
 );
+
+CREATE TABLE alunos {
+	id SERIAL PRIMARY KEY,
+	nome TEXT NOT NULL,
+	periodo VARCHAR(40) NOT NULL,
+	etapa VARCHAR(40) NOT NULL,
+	ano INTEGER NOT NULL
+}

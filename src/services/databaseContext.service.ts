@@ -19,7 +19,7 @@ const pool: Pool = process.env.ENVIRONMENT == 'DEVELOPMENT'
 })
 
 class DataBaseContext {
-  async query(text: string, params: Array<any>): Promise<QueryResult> {
+  async query(text: string, params?: Array<any>): Promise<QueryResult> {
     const start: number = Date.now();
     const res: QueryResult = await pool.query(text, params);
     const duration: number = Date.now() - start;

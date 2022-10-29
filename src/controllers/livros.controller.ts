@@ -41,9 +41,7 @@ LivrosController.post('/', async (req: Request, res: Response) => {
   try {
     const livrosService = new LivrosService();
 
-    const livro: Livros = livrosService.parseLivro(req.body as Livros);
-
-    const id: number = await livrosService.post(livro);
+    const id: number = await livrosService.post(req.body as Livros);
 
     if (id != 0)
       res.status(HttpResponseCodes.OK).send(id);
@@ -59,9 +57,7 @@ LivrosController.put('/', async (req: Request, res: Response) => {
   try {
     const livrosService = new LivrosService();
 
-    const livro: Livros = livrosService.parseLivro(req.body as Livros);
-
-    await livrosService.put(livro);
+    await livrosService.put(req.body as Livros);
 
     res.status(HttpResponseCodes.OK).send();
   }
